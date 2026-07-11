@@ -1,0 +1,22 @@
+{
+  "name": "nsiso-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interface web du Web-based Linux Namespace Isolation Manager — Institut Universitaire Saint Jean",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:dev": "vite build --mode development",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lucide-react": "^0.383.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^8.1.3"
+  }
+}
