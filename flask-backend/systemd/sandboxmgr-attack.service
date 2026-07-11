@@ -1,0 +1,21 @@
+[Unit]
+Description=Sandbox Manager (ATTACK mode — pédagogique, isoler du réseau public !)
+After=network.target
+
+[Service]
+Type=simple
+User=sandboxmgr
+Group=sandboxmgr
+WorkingDirectory=/home/sandboxmgr/app/flask-backend
+EnvironmentFile=/home/sandboxmgr/app/flask-backend/.env
+Environment=SANDBOXMGR_MODE=attack
+Environment=BIND_PORT=9443
+Environment=DATABASE_URL=sqlite:////home/sandboxmgr/app/flask-backend/sandboxmgr-attack.db
+ExecStart=/home/sandboxmgr/app/flask-backend/.venv/bin/gunicorn \
+    -k gevent -w 1 -b 127.0.0.1:9443 \
+    wsgi:app
+Restart=on-failure
+RestartSec=3s
+
+[Install]
+WantedBy=multi-user.target

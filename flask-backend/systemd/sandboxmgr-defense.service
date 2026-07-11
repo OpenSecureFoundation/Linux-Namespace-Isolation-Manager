@@ -1,0 +1,22 @@
+[Unit]
+Description=Sandbox Manager (DEFENSE mode)
+After=network.target
+
+[Service]
+Type=simple
+User=sandboxmgr
+Group=sandboxmgr
+WorkingDirectory=/home/sandboxmgr/app/flask-backend
+EnvironmentFile=/home/sandboxmgr/app/flask-backend/.env
+Environment=SANDBOXMGR_MODE=defense
+Environment=BIND_PORT=8443
+ExecStart=/home/sandboxmgr/app/flask-backend/.venv/bin/gunicorn \
+    -k gevent -w 1 -b 0.0.0.0:8443 \
+    --certfile=${TLS_CERT} --keyfile=${TLS_KEY} \
+    wsgi:app
+Restart=on-failure
+RestartSec=3s
+NoNewPrivileges=false
+
+[Install]
+WantedBy=multi-user.target
