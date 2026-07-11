@@ -98,6 +98,7 @@ export default function SandboxCard({ sb, onSelect, onDestroy }) {
       {/* Corps meta */}
       <div style={{ padding: "14px 16px" }}>
         {meta("Réf", sb.id ? sb.id.slice(0, 8).toUpperCase() : "—")}
+        {meta("Isolation", sb.typeIsolation || "—")}
         {meta("PID racine", sb.pidRacine ?? "—")}
         {meta("Créée le", sb.dateCreation ? formatDateTime(sb.dateCreation) : "—")}
       </div>

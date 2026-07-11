@@ -11,6 +11,7 @@ export type Utilisateur = {
 };
 
 export type StatutSandbox = "EN_COURS" | "ARRETEE" | "EN_ERREUR";
+export type TypeIsolation = "MNT" | "PID" | "NET" | "UTS";
 
 export type Sandbox = {
   id: string;
@@ -18,6 +19,7 @@ export type Sandbox = {
   pidRacine: number | null;
   dateCreation: string;
   statut: StatutSandbox;
+  typeIsolation: TypeIsolation;
   proprietaireId: string;
 };
 
@@ -140,10 +142,13 @@ export function listSandboxes(): Promise<{ sandboxes: Sandbox[] }> {
   return request("/api/sandboxes");
 }
 
-export function createSandbox(nomVirtuel?: string): Promise<{ sandbox: Sandbox }> {
+export function createSandbox(
+  nomVirtuel?: string,
+  typeIsolation: TypeIsolation = "MNT",
+): Promise<{ sandbox: Sandbox }> {
   return request("/api/sandboxes", {
     method: "POST",
-    body: nomVirtuel ? { nomVirtuel } : {},
+    body: { ...(nomVirtuel ? { nomVirtuel } : {}), typeIsolation },
   });
 }
 

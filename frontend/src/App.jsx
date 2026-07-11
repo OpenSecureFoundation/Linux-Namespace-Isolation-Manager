@@ -80,14 +80,17 @@ export default function App() {
     }
   }, [sandboxes, selectedId]);
 
-  // UC1 — Créer une sandbox via le backend
-  async function handleCreate(name) {
+  // UC1 — Créer une sandbox via le backend (un seul namespace choisi)
+  async function handleCreate(name, typeIsolation = "MNT") {
     setShowCreate(false);
     try {
-      const { sandbox } = await createSandbox(name || undefined);
+      const { sandbox } = await createSandbox(name || undefined, typeIsolation);
       await refreshSandboxes();
       setSelectedId(sandbox.id);
-      pushToast("success", `Sandbox « ${sandbox.nomVirtuel} » créée avec succès.`);
+      pushToast(
+        "success",
+        `Sandbox « ${sandbox.nomVirtuel} » créée (isolation ${sandbox.typeIsolation}).`,
+      );
     } catch (e) {
       pushToast("error", humanizeApiError(e));
     }
